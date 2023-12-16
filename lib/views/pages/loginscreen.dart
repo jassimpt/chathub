@@ -1,7 +1,10 @@
+import 'package:chathub/controller/auth_provider.dart';
+
 import 'package:chathub/views/pages/registerscreen.dart';
 import 'package:chathub/views/widgets/components/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -11,8 +14,19 @@ class LoginScreen extends StatelessWidget {
     TextEditingController emailcontroller = TextEditingController();
     TextEditingController passwordcontroller = TextEditingController();
     final size = MediaQuery.of(context).size;
+    void signIn() {
+      final signinservices = Provider.of<AuthProvider>(context, listen: false);
+      try {
+        signinservices.signInWithEmail(
+            emailcontroller.text, passwordcontroller.text);
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
+
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(23, 26, 31, 1),
+      backgroundColor: const Color.fromRGBO(53, 32, 111, 1),
       body: SafeArea(
           child: Column(
         children: [
@@ -21,7 +35,8 @@ class LoginScreen extends StatelessWidget {
           ),
           Text(
             'Welcome Back!',
-            style: GoogleFonts.poppins(fontSize: 28),
+            style:
+                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 10,
@@ -29,7 +44,7 @@ class LoginScreen extends StatelessWidget {
           const Text(
             'Please sign in to your account',
             style: TextStyle(
-              color: Color.fromRGBO(61, 63, 68, 1),
+              color: Color.fromRGBO(91, 93, 98, 1),
             ),
           ),
           SizedBox(
@@ -55,19 +70,25 @@ class LoginScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
-            child: Container(
-              height: size.height * 0.07,
-              width: size.width,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: const Center(
-                  child: Text(
-                "Sign In",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              )),
+            child: GestureDetector(
+              onTap: () {
+                signIn();
+              },
+              child: Container(
+                height: size.height * 0.07,
+                width: size.width,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(205, 210, 232, 1),
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Center(
+                    child: Text(
+                  "Sign In",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                )),
+              ),
             ),
           ),
           const SizedBox(
@@ -81,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                 Text(
                   'Forgot password ?',
                   style: TextStyle(
-                    color: Color.fromRGBO(61, 63, 68, 1),
+                    color: Color.fromRGBO(91, 93, 98, 1),
                   ),
                 )
               ],

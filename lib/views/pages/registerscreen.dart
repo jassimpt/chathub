@@ -1,19 +1,44 @@
+import 'package:chathub/controller/auth_provider.dart';
 import 'package:chathub/views/pages/loginscreen.dart';
-import 'package:chathub/views/pages/registerscreen.dart';
 import 'package:chathub/views/widgets/components/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController confirmpasswordcontroller = TextEditingController();
+
+  void signup() async {
+    if (passwordcontroller.text != confirmpasswordcontroller.text) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Password not match')));
+      return;
+    }
+    final authpro = Provider.of<AuthProvider>(context, listen: false);
+    try {
+      await authpro.signUpWithEmail(
+          emailcontroller.text, passwordcontroller.text, namecontroller.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController emailcontroller = TextEditingController();
-    TextEditingController passwordcontroller = TextEditingController();
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(23, 26, 31, 1),
+      backgroundColor: const Color.fromRGBO(53, 32, 111, 1),
       body: SafeArea(
           child: Column(
         children: [
@@ -22,7 +47,8 @@ class SignupScreen extends StatelessWidget {
           ),
           Text(
             'Create New Account',
-            style: GoogleFonts.poppins(fontSize: 28),
+            style:
+                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 10,
@@ -30,7 +56,7 @@ class SignupScreen extends StatelessWidget {
           const Text(
             'Please fill in the form to continue',
             style: TextStyle(
-              color: Color.fromRGBO(61, 63, 68, 1),
+              color: Color.fromRGBO(91, 93, 98, 1),
             ),
           ),
           SizedBox(
@@ -39,7 +65,7 @@ class SignupScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
             child:
-                CustomTextField(controller: emailcontroller, hinttext: 'Name'),
+                CustomTextField(controller: namecontroller, hinttext: 'Name'),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
@@ -49,7 +75,7 @@ class SignupScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
             child: CustomTextField(
-                controller: emailcontroller, hinttext: 'Password'),
+                controller: passwordcontroller, hinttext: 'Password'),
           ),
           Padding(
               padding: const EdgeInsets.only(
@@ -57,7 +83,7 @@ class SignupScreen extends StatelessWidget {
                 right: 25,
               ),
               child: CustomTextField(
-                  controller: passwordcontroller,
+                  controller: confirmpasswordcontroller,
                   hinttext: "Confirm Password")),
           SizedBox(
             height: 130,
@@ -67,19 +93,23 @@ class SignupScreen extends StatelessWidget {
               left: 25,
               right: 25,
             ),
-            child: Container(
-              height: size.height * 0.07,
-              width: size.width,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: const Center(
-                  child: Text(
-                "Sign Up",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              )),
+            child: GestureDetector(
+              onTap: () => signup(),
+              child: Container(
+                height: size.height * 0.07,
+                width: size.width,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(205, 210, 232, 1),
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Center(
+                    child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                )),
+              ),
             ),
           ),
           SizedBox(
@@ -95,7 +125,7 @@ class SignupScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
+                    builder: (context) => LoginScreen(),
                   ));
                 },
                 child: const Text(

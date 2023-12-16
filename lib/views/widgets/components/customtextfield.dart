@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(25, 30, 43, 1),
+          fillColor: Color.fromRGBO(75, 58, 136, 1),
           border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(20)),
