@@ -81,10 +81,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       final userdetails = value.users[index];
                       print(userdetails.name);
-                      return ListTile(
-                        title: Text(
-                          userdetails.name!,
-                          style: const TextStyle(color: Colors.black),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 35,
+                            backgroundImage: AssetImage(
+                              'assets/images/user.jpg',
+                            ),
+                          ),
+                          title: Text(
+                            userdetails.name!,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          subtitle: Text(
+                            'hello',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          trailing: Text(
+                            'Friday',
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.4)),
+                          ),
                         ),
                       );
                     },
