@@ -1,4 +1,5 @@
 import 'package:chathub/controller/auth_provider.dart';
+import 'package:chathub/views/pages/homescreen.dart';
 
 import 'package:chathub/views/pages/registerscreen.dart';
 import 'package:chathub/views/widgets/components/customtextfield.dart';
@@ -7,23 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
 
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailcontroller = TextEditingController();
-    TextEditingController passwordcontroller = TextEditingController();
     final size = MediaQuery.of(context).size;
-    void signIn() {
-      final signinservices = Provider.of<AuthProvider>(context, listen: false);
-      try {
-        signinservices.signInWithEmail(
-            emailcontroller.text, passwordcontroller.text);
-      } catch (e) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
-      }
-    }
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(53, 32, 111, 1),
@@ -72,7 +63,7 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
             child: GestureDetector(
               onTap: () {
-                signIn();
+                signIn(context);
               },
               child: Container(
                 height: size.height * 0.07,
@@ -157,7 +148,7 @@ class LoginScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const SignupScreen(),
+                    builder: (context) => SignupScreen(),
                   ));
                 },
                 child: const Text(
@@ -171,5 +162,21 @@ class LoginScreen extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  void signIn(context) {
+    final signinservices = Provider.of<AuthProvider>(context, listen: false);
+    try {
+      signinservices.signInWithEmail(
+          emailcontroller.text, passwordcontroller.text);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

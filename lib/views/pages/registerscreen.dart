@@ -1,38 +1,21 @@
 import 'package:chathub/controller/auth_provider.dart';
+import 'package:chathub/views/pages/homescreen.dart';
 import 'package:chathub/views/pages/loginscreen.dart';
 import 'package:chathub/views/widgets/components/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
 
-  @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller = TextEditingController();
 
-  void signup() async {
-    if (passwordcontroller.text != confirmpasswordcontroller.text) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Password not match')));
-      return;
-    }
-    final authpro = Provider.of<AuthProvider>(context, listen: false);
-    try {
-      await authpro.signUpWithEmail(
-          emailcontroller.text, passwordcontroller.text, namecontroller.text);
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-  }
+  TextEditingController passwordcontroller = TextEditingController();
+
+  TextEditingController namecontroller = TextEditingController();
+
+  TextEditingController confirmpasswordcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
               right: 25,
             ),
             child: GestureDetector(
-              onTap: () => signup(),
+              onTap: () => signup(context),
               child: Container(
                 height: size.height * 0.07,
                 width: size.width,
@@ -139,5 +122,26 @@ class _SignupScreenState extends State<SignupScreen> {
         ],
       )),
     );
+  }
+
+  void signup(context) async {
+    if (passwordcontroller.text != confirmpasswordcontroller.text) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Password not match')));
+      return;
+    }
+    final authpro = Provider.of<AuthProvider>(context, listen: false);
+    try {
+      await authpro.signUpWithEmail(
+          emailcontroller.text, passwordcontroller.text, namecontroller.text);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

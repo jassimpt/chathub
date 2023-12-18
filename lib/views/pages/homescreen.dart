@@ -1,5 +1,7 @@
 import 'package:chathub/controller/firebase_provider.dart';
 import 'package:chathub/services/auth/auth_service.dart';
+import 'package:chathub/views/pages/chatscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
@@ -77,34 +79,49 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Consumer<FirebaseProvider>(
                 builder: (context, value, child) {
                   return ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemCount: value.users.length,
                     itemBuilder: (context, index) {
                       final userdetails = value.users[index];
                       print(userdetails.name);
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            radius: 35,
-                            backgroundImage: AssetImage(
-                              'assets/images/user.jpg',
+                      if (userdetails.uid !=
+                          FirebaseAuth.instance.currentUser!.uid) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            splashColor: Color.fromRGBO(41, 15, 102, .3),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ChatScreen(user: userdetails),
+                                )),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                radius: 35,
+                                backgroundImage: AssetImage(
+                                  'assets/images/user.jpg',
+                                ),
+                              ),
+                              title: Text(
+                                userdetails.name!,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              subtitle: Text(
+                                'hello',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              trailing: Text(
+                                'Friday',
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.4)),
+                              ),
                             ),
                           ),
-                          title: Text(
-                            userdetails.name!,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          subtitle: Text(
-                            'hello',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          trailing: Text(
-                            'Friday',
-                            style:
-                                TextStyle(color: Colors.black.withOpacity(0.4)),
-                          ),
-                        ),
-                      );
+                        );
+                      } else {
+                        return SizedBox();
+                      }
                     },
                   );
                 },

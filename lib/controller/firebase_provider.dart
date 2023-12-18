@@ -1,9 +1,11 @@
+import 'package:chathub/models/message_model.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseProvider extends ChangeNotifier {
   List<UserModel> users = [];
+  List<Message> messages = [];
   AuthService service = AuthService();
   List<UserModel> getAllUsers() {
     service.firestore
@@ -14,5 +16,22 @@ class FirebaseProvider extends ChangeNotifier {
       notifyListeners();
     });
     return users;
+  }
+
+  List<Message> getMessages(String currentuserid, String recieverid) {
+    List ids = [currentuserid, recieverid];
+    ids.sort();
+    String chatroomid = ids.join("_");
+    service.firestore
+        .collection("chat_room")
+        .doc(chatroomid)
+        .collection("messages")
+        .snapshots()
+        .listen((message) {
+      messages =
+          message.docs.map((doc) => Message.fromJson(doc.data())).toList();
+      notifyListeners();
+    });
+    return messages;
   }
 }
