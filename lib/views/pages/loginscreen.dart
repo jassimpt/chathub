@@ -1,4 +1,5 @@
 import 'package:chathub/controller/auth_provider.dart';
+import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/views/pages/homescreen.dart';
 
 import 'package:chathub/views/pages/registerscreen.dart';
@@ -38,7 +39,7 @@ class LoginScreen extends StatelessWidget {
               color: Color.fromRGBO(91, 93, 98, 1),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
           Padding(
@@ -69,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                 height: size.height * 0.07,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(205, 210, 232, 1),
+                    color: const Color.fromRGBO(205, 210, 232, 1),
                     borderRadius: BorderRadius.circular(20)),
                 child: const Center(
                     child: Text(
@@ -99,7 +100,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Padding(
@@ -107,32 +108,38 @@ class LoginScreen extends StatelessWidget {
               left: 25,
               right: 25,
             ),
-            child: Container(
-              height: size.height * 0.07,
-              width: size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/search.png',
-                    height: 40,
-                    width: 40,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Sign In With Google",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              )),
+            child: GestureDetector(
+              onTap: () {
+                AuthService().singinWithGoogle();
+              },
+              child: Container(
+                height: size.height * 0.07,
+                width: size.width,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/search.png',
+                      height: 40,
+                      width: 40,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      "Sign In With Google",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )),
+              ),
             ),
           ),
           const SizedBox(
@@ -172,7 +179,7 @@ class LoginScreen extends StatelessWidget {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ));
     } catch (e) {
       ScaffoldMessenger.of(context)

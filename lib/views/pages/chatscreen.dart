@@ -1,5 +1,6 @@
 import 'package:chathub/controller/firebase_provider.dart';
 import 'package:chathub/models/user_model.dart';
+import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/services/chat/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,15 +16,13 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController messagecontroller = TextEditingController();
+  AuthService service = AuthService();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    final currentuserid = Provider.of<FirebaseProvider>(context, listen: false)
-        .service
-        .auth
-        .currentUser!
-        .uid;
+    final currentuserid = service.auth.currentUser!.uid;
+
     Provider.of<FirebaseProvider>(context, listen: false)
         .getMessages(currentuserid, widget.user.uid!);
   }
@@ -45,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back_ios)),
+                      icon: const Icon(Icons.arrow_back_ios)),
                   SizedBox(
                     width: size.width * .28,
                   ),
@@ -63,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Container(
                     // messages container
                     width: size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Color.fromRGBO(239, 237, 247, 1),
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(50))),
@@ -73,10 +72,41 @@ class _ChatScreenState extends State<ChatScreen> {
                           itemCount: value.messages.length,
                           itemBuilder: (context, index) {
                             final chats = value.messages[index];
-                            return ListTile(
-                              title: Text(
-                                chats.content!,
-                                style: TextStyle(color: Colors.black),
+                            var alignment =
+                                chats.senderId == service.auth.currentUser!.uid
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft;
+                            var bubblecolor =
+                                chats.senderId == service.auth.currentUser!.uid
+                                    ? const Color.fromRGBO(41, 15, 102, 1)
+                                    : Colors.white;
+                            var messagecolor =
+                                chats.senderId == service.auth.currentUser!.uid
+                                    ? Colors.white
+                                    : Colors.black;
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                alignment: alignment,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                child: SizedBox(
+                                  width: size.width * 0.3,
+                                  height: size.height * 0.06,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: bubblecolor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        chats.content!,
+                                        style: TextStyle(color: messagecolor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -109,7 +139,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                             BorderRadius.circular(20)),
                                     filled: true,
                                     fillColor:
-                                        Color.fromRGBO(239, 237, 247, 1)),
+                                        const Color.fromRGBO(239, 237, 247, 1)),
                               ),
                             ),
                           ),
@@ -117,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               onPressed: () {
                                 sendMessage();
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.send_rounded,
                                 color: Colors.amber,
                                 size: 30,

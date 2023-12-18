@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Consumer<FirebaseProvider>(
                 builder: (context, value, child) {
                   return ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: value.users.length,
                     itemBuilder: (context, index) {
                       final userdetails = value.users[index];
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
-                            splashColor: Color.fromRGBO(41, 15, 102, .3),
+                            splashColor: const Color.fromRGBO(41, 15, 102, .3),
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ChatScreen(user: userdetails),
                                 )),
                             child: ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 35,
                                 backgroundImage: AssetImage(
                                   'assets/images/user.jpg',
@@ -105,9 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               title: Text(
                                 userdetails.name!,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
-                              subtitle: Text(
+                              subtitle: const Text(
                                 'hello',
                                 style: TextStyle(color: Colors.black),
                               ),
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     },
                   );

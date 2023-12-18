@@ -42,7 +42,7 @@ class SignupScreen extends StatelessWidget {
               color: Color.fromRGBO(91, 93, 98, 1),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
           Padding(
@@ -68,7 +68,7 @@ class SignupScreen extends StatelessWidget {
               child: CustomTextField(
                   controller: confirmpasswordcontroller,
                   hinttext: "Confirm Password")),
-          SizedBox(
+          const SizedBox(
             height: 130,
           ),
           Padding(
@@ -82,7 +82,7 @@ class SignupScreen extends StatelessWidget {
                 height: size.height * 0.07,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(205, 210, 232, 1),
+                    color: const Color.fromRGBO(205, 210, 232, 1),
                     borderRadius: BorderRadius.circular(20)),
                 child: const Center(
                     child: Text(
@@ -95,7 +95,7 @@ class SignupScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -127,7 +127,7 @@ class SignupScreen extends StatelessWidget {
   void signup(context) async {
     if (passwordcontroller.text != confirmpasswordcontroller.text) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Password not match')));
+          .showSnackBar(const SnackBar(content: Text('Password not match')));
       return;
     }
     final authpro = Provider.of<AuthProvider>(context, listen: false);
@@ -137,7 +137,7 @@ class SignupScreen extends StatelessWidget {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ));
     } catch (e) {
       ScaffoldMessenger.of(context)
