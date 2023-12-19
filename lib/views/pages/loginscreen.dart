@@ -4,6 +4,7 @@ import 'package:chathub/views/pages/homescreen.dart';
 
 import 'package:chathub/views/pages/registerscreen.dart';
 import 'package:chathub/views/widgets/components/customtextfield.dart';
+import 'package:chathub/views/widgets/components/squaretile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
           Text(
             'Welcome Back!',
             style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold),
+                GoogleFonts.ubuntu(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 10,
@@ -101,49 +102,64 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 100,
+            height: 50,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 35),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[400],
+                )),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    "Or continue with",
+                    style: GoogleFonts.ubuntu(color: Colors.grey[400]),
+                  ),
+                ),
+                Expanded(
+                    child: Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[400],
+                ))
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 50,
           ),
           Padding(
             padding: const EdgeInsets.only(
               left: 25,
               right: 25,
             ),
-            child: GestureDetector(
-              onTap: () {
-                AuthService().singinWithGoogle();
-              },
-              child: Container(
-                height: size.height * 0.07,
-                width: size.width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            child: Consumer<AuthProvider>(
+              builder: (context, value, child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.asset(
-                      'assets/images/search.png',
-                      height: 40,
-                      width: 40,
+                    SquareTile(
+                      size: size,
+                      image: "assets/images/google.png",
+                      onTap: () {
+                        value.singupWithGoogle();
+                      },
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      "Sign In With Google",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    SquareTile(
+                      size: size,
+                      image: "assets/images/call.png",
+                      onTap: () {},
+                    )
                   ],
-                )),
-              ),
+                );
+              },
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

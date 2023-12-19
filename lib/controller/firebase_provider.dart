@@ -8,10 +8,7 @@ class FirebaseProvider extends ChangeNotifier {
   List<Message> messages = [];
   AuthService service = AuthService();
   List<UserModel> getAllUsers() {
-    service.firestore
-        .collection('users')
-        .snapshots(includeMetadataChanges: true)
-        .listen((user) {
+    service.firestore.collection('users').snapshots().listen((user) {
       users = user.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
       notifyListeners();
     });

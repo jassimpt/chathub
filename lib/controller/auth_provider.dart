@@ -12,4 +12,8 @@ class AuthProvider extends ChangeNotifier {
   signUpWithEmail(String email, String password, String name) {
     return authservice.signUpWithEmail(email, password, name);
   }
+
+  singupWithGoogle() {
+    return authservice.singinWithGoogle();
+  }
 }
