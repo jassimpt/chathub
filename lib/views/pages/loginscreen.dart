@@ -1,10 +1,9 @@
 import 'package:chathub/controller/auth_provider.dart';
-import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/views/pages/homescreen.dart';
-
+import 'package:chathub/views/pages/phone_login_screen.dart';
 import 'package:chathub/views/pages/registerscreen.dart';
-import 'package:chathub/views/widgets/components/customtextfield.dart';
-import 'package:chathub/views/widgets/components/squaretile.dart';
+import 'package:chathub/views/widgets/customtextfield.dart';
+import 'package:chathub/views/widgets/squaretile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +13,14 @@ class LoginScreen extends StatelessWidget {
 
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(53, 32, 111, 1),
       body: SafeArea(
           child: Column(
@@ -48,8 +50,10 @@ class LoginScreen extends StatelessWidget {
               left: 25,
               right: 25,
             ),
-            child:
-                CustomTextField(controller: emailcontroller, hinttext: 'Email'),
+            child: CustomTextField(
+                controller: emailcontroller,
+                hinttext: 'Email',
+                fillcolor: Color.fromRGBO(75, 58, 136, 1)),
           ),
           const SizedBox(
             height: 20,
@@ -57,7 +61,10 @@ class LoginScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.only(left: 25, right: 25),
               child: CustomTextField(
-                  controller: passwordcontroller, hinttext: "Password")),
+                controller: passwordcontroller,
+                hinttext: "Password",
+                fillcolor: Color.fromRGBO(75, 58, 136, 1),
+              )),
           const SizedBox(
             height: 10,
           ),
@@ -71,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                 height: size.height * 0.07,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: const Color.fromRGBO(205, 210, 232, 1),
+                    color: Color.fromARGB(255, 143, 157, 221),
                     borderRadius: BorderRadius.circular(20)),
                 child: const Center(
                     child: Text(
@@ -151,7 +158,11 @@ class LoginScreen extends StatelessWidget {
                     SquareTile(
                       size: size,
                       image: "assets/images/call.png",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PhoneLoginScreen(),
+                        ));
+                      },
                     )
                   ],
                 );

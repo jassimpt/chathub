@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String verifyid = "";
 
   Future<UserCredential> signInWithEmail(String email, String pass) async {
     try {
@@ -52,6 +53,24 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
+  }
+
+  sentOtp(String phonenumber) async {
+    await auth.verifyPhoneNumber(
+      phoneNumber: phonenumber,
+      verificationCompleted: (phoneAuthCredential) {
+        return;
+      },
+      verificationFailed: (e) {
+        return;
+      },
+      codeSent: (verificationId, resendToken) {
+        verifyid = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        return;
+      },
+    );
   }
 
   Future<void> signOut() {

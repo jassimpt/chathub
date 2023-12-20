@@ -1,7 +1,8 @@
 import 'package:chathub/controller/auth_provider.dart';
 import 'package:chathub/views/pages/homescreen.dart';
 import 'package:chathub/views/pages/loginscreen.dart';
-import 'package:chathub/views/widgets/components/customtextfield.dart';
+import 'package:chathub/views/widgets/customtextfield.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -47,18 +48,24 @@ class SignupScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
-            child:
-                CustomTextField(controller: namecontroller, hinttext: 'Name'),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
-            child:
-                CustomTextField(controller: emailcontroller, hinttext: 'Email'),
+            child: CustomTextField(
+                controller: namecontroller,
+                hinttext: 'Name',
+                fillcolor: Color.fromRGBO(75, 58, 136, 1)),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
             child: CustomTextField(
-                controller: passwordcontroller, hinttext: 'Password'),
+                controller: emailcontroller,
+                hinttext: 'Email',
+                fillcolor: Color.fromRGBO(75, 58, 136, 1)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
+            child: CustomTextField(
+                controller: passwordcontroller,
+                hinttext: 'Password',
+                fillcolor: Color.fromRGBO(75, 58, 136, 1)),
           ),
           Padding(
               padding: const EdgeInsets.only(
@@ -66,6 +73,7 @@ class SignupScreen extends StatelessWidget {
                 right: 25,
               ),
               child: CustomTextField(
+                  fillcolor: Color.fromRGBO(75, 58, 136, 1),
                   controller: confirmpasswordcontroller,
                   hinttext: "Confirm Password")),
           const SizedBox(

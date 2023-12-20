@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {super.key, required this.controller, required this.hinttext});
+      {super.key,
+      required this.controller,
+      required this.hinttext,
+      required this.fillcolor});
 
   final TextEditingController controller;
   final String hinttext;
+  final Color fillcolor;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromRGBO(75, 58, 136, 1),
+          fillColor: fillcolor,
           border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(20)),
