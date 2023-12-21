@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: value.users.length,
                     itemBuilder: (context, index) {
                       final userdetails = value.users[index];
-                      print(userdetails.name);
+
                       if (userdetails.uid !=
                           FirebaseAuth.instance.currentUser!.uid) {
                         return Padding(
@@ -105,7 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               title: Text(
                                 userdetails.name!,
-                                style: const TextStyle(color: Colors.black),
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
                               ),
                               subtitle: const Text(
                                 'hello',

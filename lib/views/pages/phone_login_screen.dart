@@ -1,3 +1,4 @@
+import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/views/widgets/custom_alert_dialoge.dart';
 import 'package:chathub/views/widgets/custom_phone_field.dart';
 import 'package:chathub/views/widgets/customtextfield.dart';
@@ -13,6 +14,7 @@ class PhoneLoginScreen extends StatelessWidget {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController otpcontroller = TextEditingController();
+  AuthService service = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +99,12 @@ class PhoneLoginScreen extends StatelessWidget {
                         splashColor: Colors.black,
                         borderRadius: BorderRadius.circular(25),
                         onTap: () {
+                          String countrycode = "+91";
+                          String phonenumber =
+                              countrycode + phonecontroller.text;
+                          print(phonenumber);
+                          service.signInWithPhone(phonenumber, context,
+                              namecontroller.text, emailcontroller.text);
                           showDialog(
                             context: context,
                             builder: (context) {
