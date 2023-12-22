@@ -3,6 +3,7 @@ import 'package:chathub/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -17,8 +18,13 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FirebaseProvider>(
-      builder: (context, value, child) {
+    return Consumer<FirebaseProvider>(builder: (context, value, child) {
+      if (value.messages.isEmpty) {
+        return Center(
+          child: LottieBuilder.asset(
+              "assets/lottie/Animation - 1703230443495.json"),
+        );
+      } else {
         return ListView.builder(
           controller: value.scrollController,
           itemCount: value.messages.length,
@@ -31,11 +37,9 @@ class ChatBubble extends StatelessWidget {
                 ? Alignment.centerRight
                 : Alignment.centerLeft;
             var bubblecolor = chats.senderId == service.auth.currentUser!.uid
-                ? const Color.fromARGB(255, 59, 43, 98)
-                : Colors.white;
-            var messagecolor = chats.senderId == service.auth.currentUser!.uid
                 ? Colors.white
-                : Colors.black;
+                : Color.fromARGB(255, 211, 228, 243);
+
             var borderradius = chats.senderId == service.auth.currentUser!.uid
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(15),
@@ -45,7 +49,7 @@ class ChatBubble extends StatelessWidget {
                     topRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15));
-            print(chats.time);
+
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
               child: Align(
@@ -58,14 +62,6 @@ class ChatBubble extends StatelessWidget {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
-                          blurRadius: 5,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
                       color: bubblecolor,
                       borderRadius: borderradius,
                     ),
@@ -76,15 +72,21 @@ class ChatBubble extends StatelessWidget {
                           Text(
                             chats.content!,
                             style: GoogleFonts.poppins(
-                              color: messagecolor,
-                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           SizedBox(
                             width: size.width * 0.2,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: [Text(formattedTime)],
+                              children: [
+                                Text(
+                                  formattedTime,
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.7)),
+                                )
+                              ],
                             ),
                           )
                         ],
@@ -96,7 +98,7 @@ class ChatBubble extends StatelessWidget {
             );
           },
         );
-      },
-    );
+      }
+    });
   }
 }

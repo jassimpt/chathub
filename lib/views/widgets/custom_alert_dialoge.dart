@@ -26,7 +26,7 @@ class CustomAlertDialog extends StatelessWidget {
         CustomTextField(
           controller: otpController,
           hinttext: "OTP",
-          fillcolor: Color.fromRGBO(53, 32, 111, 1),
+          fillcolor: Color.fromRGBO(43, 40, 53, 1),
         ),
         SizedBox(height: 20),
         GestureDetector(

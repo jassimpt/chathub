@@ -65,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     decoration: const BoxDecoration(
                         color: Color.fromRGBO(239, 237, 247, 1),
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(50))),
+                            BorderRadius.vertical(top: Radius.circular(35))),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: ChatBubble(service: service, size: size),

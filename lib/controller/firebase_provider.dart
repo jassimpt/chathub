@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 
 class FirebaseProvider extends ChangeNotifier {
   List<UserModel> users = [];
+  List<UserModel> searchedusers = [];
   List<Message> messages = [];
   AuthService service = AuthService();
   ScrollController scrollController = ScrollController();
+
   List<UserModel> getAllUsers() {
     service.firestore.collection('users').snapshots().listen((user) {
       users = user.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+      loadUsers();
       notifyListeners();
     });
     return users;
@@ -34,6 +37,23 @@ class FirebaseProvider extends ChangeNotifier {
       scrollDown();
     });
     return messages;
+  }
+
+  loadUsers() {
+    searchedusers = users;
+  }
+
+  searchUser(String name) async {
+    service.firestore
+        .collection("users")
+        .where("name", isGreaterThanOrEqualTo: name.toLowerCase())
+        .snapshots()
+        .listen((event) {
+      searchedusers =
+          event.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+      notifyListeners();
+    });
+    return searchedusers;
   }
 
   void scrollDown() => WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Provider.of<FirebaseProvider>(context, listen: false).getAllUsers();
-    super.initState();
+    final pro = Provider.of<FirebaseProvider>(context, listen: false);
+    pro.getAllUsers();
   }
 
   AuthService service = AuthService();
@@ -53,16 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: TextFormField(
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(30)),
-                  filled: true,
-                  fillColor: const Color.fromRGBO(102, 106, 179, 1),
-                  hintText: 'Search ',
-                  prefixIcon: const Icon(Iconsax.search_normal)),
+            child: Consumer<FirebaseProvider>(
+              builder: (context, values, child) => TextFormField(
+                onChanged: (value) {
+                  values.searchUser(value);
+                },
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(30)),
+                    filled: true,
+                    fillColor: const Color.fromRGBO(102, 106, 179, 1),
+                    hintText: 'Search ',
+                    prefixIcon: const Icon(Iconsax.search_normal)),
+              ),
             ),
           ),
           const SizedBox(
@@ -80,9 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, value, child) {
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: value.users.length,
+                    itemCount: value.searchedusers.length,
                     itemBuilder: (context, index) {
-                      final userdetails = value.users[index];
+                      final userdetails = value.searchedusers[index];
+                      // final lastmessage = value.messages[index].content != null
+                      //     ? value.messages[index].content
+                      //     : "no messsages";
 
                       if (userdetails.uid !=
                           FirebaseAuth.instance.currentUser!.uid) {
@@ -109,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600),
                               ),
-                              subtitle: const Text(
-                                'hello',
+                              subtitle: Text(
+                                "lastmessage!",
                                 style: TextStyle(color: Colors.black),
                               ),
                               trailing: Text(
