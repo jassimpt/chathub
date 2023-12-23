@@ -2,6 +2,7 @@ import 'package:chathub/models/message_model.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/views/pages/homescreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseProvider extends ChangeNotifier {
@@ -37,6 +38,28 @@ class FirebaseProvider extends ChangeNotifier {
       scrollDown();
     });
     return messages;
+  }
+
+  Future<void> clearChat(String currentuserid, String recieverid) async {
+    List ids = [currentuserid, recieverid];
+    ids.sort();
+    String chatroomid = ids.join("_");
+    try {
+      var snapshot = await service.firestore
+          .collection("chat_room")
+          .doc(chatroomid)
+          .collection("messages")
+          .get();
+
+      var documents = snapshot.docs;
+      for (DocumentSnapshot doc in documents) {
+        await doc.reference.delete();
+      }
+
+      print("all messages deleted");
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   loadUsers() {

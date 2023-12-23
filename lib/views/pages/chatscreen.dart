@@ -5,6 +5,8 @@ import 'package:chathub/services/chat/chat_service.dart';
 import 'package:chathub/views/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -18,11 +20,12 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController messagecontroller = TextEditingController();
   AuthService service = AuthService();
+
   @override
   void initState() {
     super.initState();
-    final currentuserid = service.auth.currentUser!.uid;
 
+    final currentuserid = service.auth.currentUser!.uid;
     Provider.of<FirebaseProvider>(context, listen: false)
         .getMessages(currentuserid, widget.user.uid!);
   }
@@ -39,20 +42,28 @@ class _ChatScreenState extends State<ChatScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back_ios)),
-                  SizedBox(
-                    width: size.width * .28,
-                  ),
+                  // SizedBox(
+                  //   width: size.width * .28,
+                  // ),
                   Text(
                     widget.user.name!,
                     style: GoogleFonts.poppins(
                         fontSize: 22, fontWeight: FontWeight.bold),
-                  )
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Provider.of<FirebaseProvider>(context, listen: false)
+                            .clearChat(service.auth.currentUser!.uid,
+                                widget.user.uid!);
+                      },
+                      icon: Icon(Icons.clear_all_outlined))
                 ],
               ),
             ),

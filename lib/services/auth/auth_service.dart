@@ -75,10 +75,10 @@ class AuthService {
       },
       verificationFailed: (e) {
         if (e.code == "invalid-phone-number") {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('invalid phone number')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('invalid phone number')));
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Oops,something went wrong checkback later')));
           throw Exception(e.code);
         }
@@ -98,13 +98,8 @@ class AuthService {
           PhoneAuthProvider.credential(verificationId: verifyid, smsCode: otp));
       return credential.user != null ? true : false;
     } on FirebaseAuthException catch (e) {
-      // Handle FirebaseAuthException here
       print("FirebaseAuthException occurred: ${e.message}");
-      throw e; // Optionally rethrow the exception
-    } catch (e) {
-      // Handle other exceptions here
-      print("Unexpected error occurred: $e");
-      throw e; // Optionally rethrow the exception
+      throw e;
     }
   }
 
