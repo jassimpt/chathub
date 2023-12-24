@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
             child: CustomTextField(
                 controller: emailcontroller,
                 hinttext: 'Email',
-                fillcolor: Color.fromRGBO(75, 58, 136, 1)),
+                fillcolor: const Color.fromRGBO(75, 58, 136, 1)),
           ),
           const SizedBox(
             height: 20,
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
               child: CustomTextField(
                 controller: passwordcontroller,
                 hinttext: "Password",
-                fillcolor: Color.fromRGBO(75, 58, 136, 1),
+                fillcolor: const Color.fromRGBO(75, 58, 136, 1),
               )),
           const SizedBox(
             height: 10,
@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                 height: size.height * 0.07,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 143, 157, 221),
+                    color: const Color.fromARGB(255, 143, 157, 221),
                     borderRadius: BorderRadius.circular(20)),
                 child: const Center(
                     child: Text(
@@ -112,7 +112,7 @@ class LoginScreen extends StatelessWidget {
             height: 50,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 35),
+            padding: const EdgeInsets.symmetric(horizontal: 35),
             child: Row(
               children: [
                 Expanded(
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                   color: Colors.grey[400],
                 )),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "Or continue with",
                     style: GoogleFonts.ubuntu(color: Colors.grey[400]),
@@ -135,7 +135,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Padding(

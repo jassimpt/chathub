@@ -20,7 +20,7 @@ class PhoneLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(53, 32, 111, 1),
+      backgroundColor: const Color.fromRGBO(53, 32, 111, 1),
       body: SafeArea(
         child: NotificationListener<ScrollNotification>(
           onNotification: (notification) {
@@ -54,7 +54,7 @@ class PhoneLoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -71,8 +71,8 @@ class PhoneLoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text("on your mobile number"),
-                SizedBox(height: 50),
+                const Text("on your mobile number"),
+                const SizedBox(height: 50),
                 Column(
                   children: [
                     CustomPhoneField(
@@ -83,7 +83,7 @@ class PhoneLoginScreen extends StatelessWidget {
                       child: CustomTextField(
                           controller: namecontroller,
                           hinttext: "Name",
-                          fillcolor: Color.fromRGBO(75, 58, 136, 1)),
+                          fillcolor: const Color.fromRGBO(75, 58, 136, 1)),
                     ),
                     Padding(
                       padding:
@@ -91,7 +91,7 @@ class PhoneLoginScreen extends StatelessWidget {
                       child: CustomTextField(
                           controller: emailcontroller,
                           hinttext: "Email",
-                          fillcolor: Color.fromRGBO(75, 58, 136, 1)),
+                          fillcolor: const Color.fromRGBO(75, 58, 136, 1)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -118,7 +118,7 @@ class PhoneLoginScreen extends StatelessWidget {
                           width: size.width,
                           height: size.height * 0.08,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 143, 157, 221)
+                              color: const Color.fromARGB(255, 143, 157, 221)
                                   .withOpacity(0.8),
                               borderRadius: BorderRadius.circular(25)),
                           child: Center(

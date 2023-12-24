@@ -14,19 +14,19 @@ class SquareTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Color.fromRGBO(78, 55, 155, 1),
+      splashColor: const Color.fromRGBO(78, 55, 155, 1),
       borderRadius: BorderRadius.circular(20),
       onTap: onTap,
       child: Container(
         height: size.height * .1,
         width: size.width * .2,
         decoration: BoxDecoration(
-            border: Border.all(color: Color.fromRGBO(164, 148, 231, 1)),
+            border: Border.all(color: const Color.fromRGBO(164, 148, 231, 1)),
             borderRadius: BorderRadius.circular(20)),
         child: Center(
             child: Image.asset(
           image,
-          color: Color.fromRGBO(164, 148, 231, 1),
+          color: const Color.fromRGBO(164, 148, 231, 1),
           height: 35,
           width: 35,
         )),

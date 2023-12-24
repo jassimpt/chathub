@@ -5,8 +5,7 @@ import 'package:chathub/services/chat/chat_service.dart';
 import 'package:chathub/views/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:popover/popover.dart';
+
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
