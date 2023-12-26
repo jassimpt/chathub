@@ -163,7 +163,13 @@ class LoginScreen extends StatelessWidget {
                           builder: (context) => PhoneLoginScreen(),
                         ));
                       },
-                    )
+                    ),
+                    SquareTile(
+                        size: size,
+                        image: 'assets/images/github.png',
+                        onTap: () {
+                          value.signInWithGithub(context);
+                        })
                   ],
                 );
               },

@@ -103,6 +103,22 @@ class AuthService {
     }
   }
 
+  signInWithGithub(context) async {
+    GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+    try {
+      UserCredential user = await auth.signInWithProvider(githubAuthProvider);
+      User gituser = user.user!;
+      final UserModel userdata = UserModel(
+          email: gituser.email, name: gituser.displayName, uid: gituser.uid);
+      firestore.collection("users").doc(gituser.uid).set(userdata.toJson());
+      return user;
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+      throw Exception(e);
+    }
+  }
+
   Future<void> signOut() async {
     final GoogleSignIn google = GoogleSignIn();
     try {

@@ -88,9 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: value.searchedusers.length,
                     itemBuilder: (context, index) {
                       final userdetails = value.searchedusers[index];
-                      // final lastmessage = value.messages[index].content != null
-                      //     ? value.messages[index].content
-                      //     : "no messsages";
 
                       if (userdetails.uid !=
                           FirebaseAuth.instance.currentUser!.uid) {
@@ -118,13 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w600),
                               ),
                               subtitle: Text(
-                                "lastmessage!",
+                                " Tap to Chat",
                                 style: TextStyle(color: Colors.black),
-                              ),
-                              trailing: Text(
-                                'Friday',
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.4)),
                               ),
                             ),
                           ),

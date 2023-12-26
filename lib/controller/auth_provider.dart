@@ -16,4 +16,8 @@ class AuthProvider extends ChangeNotifier {
   singupWithGoogle() {
     return authservice.singinWithGoogle();
   }
+
+  signInWithGithub(context) {
+    return authservice.signInWithGithub(context);
+  }
 }

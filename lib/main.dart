@@ -8,7 +8,12 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyB7FQdY2oljqCiaoIsrIH70lalRgoSDt0k",
+          appId: "1:668827673700:android:20808926486bc44c6f2b71",
+          messagingSenderId: "668827673700",
+          projectId: "chathub-37058"));
   runApp(MyApp());
 }
 
