@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
+  String? messagetype;
   String? content;
   String? senderId;
   String? senderemail;
@@ -8,6 +9,7 @@ class Message {
   Timestamp? time;
   Message(
       {required this.content,
+      required this.messagetype,
       required this.recieverId,
       required this.senderId,
       required this.time,
@@ -15,6 +17,7 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
+        messagetype: json["messagetype"],
         senderemail: json["senderemail"],
         content: json["content"],
         recieverId: json["recieverId"],
@@ -23,6 +26,7 @@ class Message {
   }
   Map<String, dynamic> toJson() {
     return {
+      "messagetype": messagetype,
       'senderemail': senderemail,
       "content": content,
       "recieverId": recieverId,

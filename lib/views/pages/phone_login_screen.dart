@@ -4,11 +4,11 @@ import 'package:chathub/views/widgets/custom_phone_field.dart';
 import 'package:chathub/views/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
+
 import 'package:lottie/lottie.dart';
 
 class PhoneLoginScreen extends StatelessWidget {
-  PhoneLoginScreen({Key? key});
+  PhoneLoginScreen({super.key});
 
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
@@ -102,7 +102,7 @@ class PhoneLoginScreen extends StatelessWidget {
                           String countrycode = "+91";
                           String phonenumber =
                               countrycode + phonecontroller.text;
-                          print(phonenumber);
+
                           service.signInWithPhone(phonenumber, context,
                               namecontroller.text, emailcontroller.text);
                           showDialog(

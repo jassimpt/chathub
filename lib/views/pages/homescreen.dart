@@ -91,35 +91,48 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       if (userdetails.uid !=
                           FirebaseAuth.instance.currentUser!.uid) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            splashColor: const Color.fromRGBO(41, 15, 102, .3),
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ChatScreen(user: userdetails),
-                                )),
-                            child: ListTile(
-                              leading: const CircleAvatar(
-                                radius: 35,
-                                backgroundImage: AssetImage(
-                                  'assets/images/user.jpg',
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                splashColor:
+                                    const Color.fromRGBO(41, 15, 102, .3),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChatScreen(user: userdetails),
+                                    )),
+                                child: ListTile(
+                                  leading: const CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage: AssetImage(
+                                      'assets/images/user.jpg',
+                                    ),
+                                  ),
+                                  title: Text(
+                                    userdetails.name!,
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  subtitle: const Text(
+                                    " Tap to Chat",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
                               ),
-                              title: Text(
-                                userdetails.name!,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              subtitle: Text(
-                                " Tap to Chat",
-                                style: TextStyle(color: Colors.black),
-                              ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25),
+                              child: Divider(
+                                height: 1,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                            )
+                          ],
                         );
                       } else {
                         return const SizedBox();

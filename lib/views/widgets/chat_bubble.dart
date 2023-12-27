@@ -38,7 +38,7 @@ class ChatBubble extends StatelessWidget {
                 : Alignment.centerLeft;
             var bubblecolor = chats.senderId == service.auth.currentUser!.uid
                 ? Colors.white
-                : Color.fromARGB(255, 211, 228, 243);
+                : const Color.fromARGB(255, 211, 228, 243);
 
             var borderradius = chats.senderId == service.auth.currentUser!.uid
                 ? const BorderRadius.only(
@@ -50,52 +50,97 @@ class ChatBubble extends StatelessWidget {
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15));
 
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-              child: Align(
-                alignment: alignment,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: size.height * 0.05,
-                    minWidth: size.width * 0.2,
-                    maxWidth: size.width * 0.7,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: bubblecolor,
-                      borderRadius: borderradius,
+            if (chats.messagetype == "text") {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                child: Align(
+                  alignment: alignment,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: size.height * 0.05,
+                      minWidth: size.width * 0.2,
+                      maxWidth: size.width * 0.7,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            chats.content!,
-                            style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: bubblecolor,
+                        borderRadius: borderradius,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              chats.content!,
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  formattedTime,
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.7)),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                            SizedBox(
+                              width: size.width * 0.2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    formattedTime,
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.7)),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                child: Align(
+                  alignment: alignment,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: size.height * 0.05,
+                      minWidth: size.width * 0.2,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: bubblecolor,
+                        borderRadius: borderradius,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Image.network(
+                              chats.content!,
+                              height: 300,
+                            ),
+                            SizedBox(
+                              width: size.width * 0.2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    formattedTime,
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.7)),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
           },
         );
       }

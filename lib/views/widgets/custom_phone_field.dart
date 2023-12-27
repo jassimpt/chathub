@@ -17,12 +17,12 @@ class CustomPhoneField extends StatelessWidget {
         decoration: InputDecoration(
             prefixText: '+91 ',
             filled: true,
-            fillColor: Color.fromRGBO(75, 58, 136, 1),
+            fillColor: const Color.fromRGBO(75, 58, 136, 1),
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(20)),
             hintText: hinttext,
-            hintStyle: TextStyle()),
+            hintStyle: const TextStyle()),
       ),
     );
   }

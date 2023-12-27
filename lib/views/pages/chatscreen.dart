@@ -1,11 +1,12 @@
 import 'package:chathub/controller/firebase_provider.dart';
+import 'package:chathub/controller/image_provider.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/services/chat/chat_service.dart';
 import 'package:chathub/views/widgets/chat_bubble.dart';
+import 'package:chathub/views/widgets/image_selector_dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -48,9 +49,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back_ios)),
-                  // SizedBox(
-                  //   width: size.width * .28,
-                  // ),
                   Text(
                     widget.user.name!,
                     style: GoogleFonts.poppins(
@@ -62,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             .clearChat(service.auth.currentUser!.uid,
                                 widget.user.uid!);
                       },
-                      icon: Icon(Icons.clear_all_outlined))
+                      icon: const Icon(Icons.clear_all_outlined))
                 ],
               ),
             ),
@@ -94,6 +92,26 @@ class _ChatScreenState extends State<ChatScreen> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Row(
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    final pro =
+                                        Provider.of<ImagePickerProvider>(
+                                            context);
+                                    return ImageSelectorDialog(
+                                      pro: pro,
+                                      size: size,
+                                      recieverId: widget.user.uid!,
+                                    );
+                                  },
+                                );
+                              },
+                              icon: Image.asset(
+                                'assets/images/gallery.png',
+                                height: 30,
+                              )),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -136,7 +154,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   sendMessage() async {
     if (messagecontroller.text.isNotEmpty) {
-      await ChatService().sendMessage(widget.user.uid!, messagecontroller.text);
+      await ChatService()
+          .sendMessage(widget.user.uid!, messagecontroller.text, "text");
       messagecontroller.clear();
     }
   }

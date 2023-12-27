@@ -1,6 +1,6 @@
 import 'package:chathub/controller/auth_provider.dart';
 import 'package:chathub/controller/firebase_provider.dart';
-import 'package:chathub/firebase_options.dart';
+import 'package:chathub/controller/image_provider.dart';
 import 'package:chathub/services/auth/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ void main() async {
           apiKey: "AIzaSyB7FQdY2oljqCiaoIsrIH70lalRgoSDt0k",
           appId: "1:668827673700:android:20808926486bc44c6f2b71",
           messagingSenderId: "668827673700",
-          projectId: "chathub-37058"));
-  runApp(MyApp());
+          projectId: "chathub-37058",
+          storageBucket: "chathub-37058.appspot.com"));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,12 +30,15 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FirebaseProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ImagePickerProvider(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(colorScheme: ColorScheme.dark()),
-        home: AuthGate(),
+        theme: ThemeData(colorScheme: const ColorScheme.dark()),
+        home: const AuthGate(),
       ),
     );
   }

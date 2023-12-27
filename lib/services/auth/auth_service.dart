@@ -98,7 +98,6 @@ class AuthService {
           PhoneAuthProvider.credential(verificationId: verifyid, smsCode: otp));
       return credential.user != null ? true : false;
     } on FirebaseAuthException catch (e) {
-      print("FirebaseAuthException occurred: ${e.message}");
       throw e;
     }
   }

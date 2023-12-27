@@ -55,8 +55,6 @@ class FirebaseProvider extends ChangeNotifier {
       for (DocumentSnapshot doc in documents) {
         await doc.reference.delete();
       }
-
-      print("all messages deleted");
     } catch (e) {
       throw Exception(e);
     }
@@ -90,10 +88,10 @@ class FirebaseProvider extends ChangeNotifier {
 
     isverified
         ? Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ))
-        : ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('otp verification failer')));
+        : ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('otp verification failer')));
     notifyListeners();
   }
 }
