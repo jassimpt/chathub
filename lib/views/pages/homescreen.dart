@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       final userdetails = value.searchedusers[index];
 
                       if (userdetails.uid !=
-                          FirebaseAuth.instance.currentUser!.uid) {
+                          FirebaseAuth.instance.currentUser?.uid) {
                         return Column(
                           children: [
                             Padding(
