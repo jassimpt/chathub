@@ -1,5 +1,5 @@
 import 'package:chathub/controller/firebase_provider.dart';
-import 'package:chathub/views/widgets/customtextfield.dart';
+import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';

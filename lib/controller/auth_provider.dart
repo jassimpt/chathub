@@ -2,11 +2,11 @@ import 'package:chathub/services/auth/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AuthProvider extends ChangeNotifier {
+class AuthProviders extends ChangeNotifier {
   Future<UserCredential>? user;
   AuthService authservice = AuthService();
-  signInWithEmail(String email, String password) {
-    return authservice.signInWithEmail(email, password);
+  signInWithEmail(String email, String password, BuildContext context) {
+    return authservice.signInWithEmail(email, password, context);
   }
 
   signUpWithEmail(String email, String password, String name) {

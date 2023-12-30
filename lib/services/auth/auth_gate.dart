@@ -1,5 +1,5 @@
-import 'package:chathub/views/pages/homescreen.dart';
-import 'package:chathub/views/pages/loginscreen.dart';
+import 'package:chathub/views/homescreen/homescreen.dart';
+import 'package:chathub/views/loginscreen/loginscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

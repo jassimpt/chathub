@@ -3,15 +3,15 @@ import 'package:chathub/controller/image_provider.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/services/chat/chat_service.dart';
-import 'package:chathub/views/widgets/chat_bubble.dart';
-import 'package:chathub/views/widgets/image_selector_dialoge.dart';
+import 'package:chathub/views/chatscreen/widgets/chat_bubble.dart';
+import 'package:chathub/views/chatscreen/widgets/image_selector_dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({super.key, required this.user});
-  UserModel user;
+  final UserModel user;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

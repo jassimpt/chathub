@@ -9,13 +9,24 @@ class AuthService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   var verifyid = "";
 
-  Future<UserCredential> signInWithEmail(String email, String pass) async {
+  Future<UserCredential?> signInWithEmail(
+      String email, String pass, context) async {
     try {
       UserCredential user =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
       return user;
     } on FirebaseAuthException catch (e) {
-      throw Exception(e.code);
+      String errorcode = "error singIn";
+      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
+        errorcode = "Icorrect email or password";
+      } else if (e.code == 'user-disabled') {
+        errorcode = "User not found";
+      } else {
+        errorcode = e.code;
+      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(errorcode)));
+      return null;
     }
   }
 

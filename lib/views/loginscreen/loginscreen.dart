@@ -1,9 +1,10 @@
 import 'package:chathub/controller/auth_provider.dart';
-import 'package:chathub/views/pages/homescreen.dart';
-import 'package:chathub/views/pages/phone_login_screen.dart';
-import 'package:chathub/views/pages/registerscreen.dart';
-import 'package:chathub/views/widgets/customtextfield.dart';
-import 'package:chathub/views/widgets/squaretile.dart';
+import 'package:chathub/views/homescreen/homescreen.dart';
+import 'package:chathub/views/loginscreen/phone_login_screen.dart';
+import 'package:chathub/views/registerscreen/registerscreen.dart';
+import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
+import 'package:chathub/views/loginscreen/widgets/squaretile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -143,7 +144,7 @@ class LoginScreen extends StatelessWidget {
               left: 25,
               right: 25,
             ),
-            child: Consumer<AuthProvider>(
+            child: Consumer<AuthProviders>(
               builder: (context, value, child) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -204,19 +205,17 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void signIn(context) {
-    final signinservices = Provider.of<AuthProvider>(context, listen: false);
-    try {
-      signinservices.signInWithEmail(
-          emailcontroller.text, passwordcontroller.text);
+  void signIn(context) async {
+    final signinservices = Provider.of<AuthProviders>(context, listen: false);
+
+    UserCredential? result = await signinservices.signInWithEmail(
+        emailcontroller.text, passwordcontroller.text, context);
+    if (result != null) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ));
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 }

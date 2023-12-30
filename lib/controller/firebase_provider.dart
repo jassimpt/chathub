@@ -1,7 +1,7 @@
 import 'package:chathub/models/message_model.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
-import 'package:chathub/views/pages/homescreen.dart';
+import 'package:chathub/views/homescreen/homescreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

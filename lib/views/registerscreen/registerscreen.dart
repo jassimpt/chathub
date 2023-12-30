@@ -1,7 +1,7 @@
 import 'package:chathub/controller/auth_provider.dart';
-import 'package:chathub/views/pages/homescreen.dart';
-import 'package:chathub/views/pages/loginscreen.dart';
-import 'package:chathub/views/widgets/customtextfield.dart';
+import 'package:chathub/views/homescreen/homescreen.dart';
+import 'package:chathub/views/loginscreen/loginscreen.dart';
+import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -138,7 +138,7 @@ class SignupScreen extends StatelessWidget {
           .showSnackBar(const SnackBar(content: Text('Password not match')));
       return;
     }
-    final authpro = Provider.of<AuthProvider>(context, listen: false);
+    final authpro = Provider.of<AuthProviders>(context, listen: false);
     try {
       await authpro.signUpWithEmail(
           emailcontroller.text, passwordcontroller.text, namecontroller.text);

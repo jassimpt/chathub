@@ -1,6 +1,6 @@
 import 'package:chathub/controller/firebase_provider.dart';
 import 'package:chathub/services/auth/auth_service.dart';
-import 'package:chathub/views/pages/chatscreen.dart';
+import 'package:chathub/views/chatscreen/chatscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    final pro = Provider.of<FirebaseProvider>(context, listen: false);
-    pro.getAllUsers();
+    Provider.of<FirebaseProvider>(context, listen: false).getAllUsers();
   }
 
   AuthService service = AuthService();
