@@ -1,21 +1,20 @@
-import 'package:chathub/controller/firebase_provider.dart';
+import 'package:chathub/services/auth/auth_service.dart';
+import 'package:chathub/views/homescreen/homescreen.dart';
 import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class CustomAlertDialog extends StatelessWidget {
-  final TextEditingController otpController;
-
-  const CustomAlertDialog({Key? key, required this.otpController})
-      : super(key: key);
-
+  final String veridicationId;
+  CustomAlertDialog({
+    required this.veridicationId,
+    Key? key,
+  }) : super(key: key);
+  TextEditingController otpcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return AlertDialog(
       backgroundColor: const Color.fromRGBO(66, 47, 129, 1),
       content: Lottie.asset(
@@ -24,15 +23,14 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       actions: [
         CustomTextField(
-          controller: otpController,
+          controller: otpcontroller,
           hinttext: "OTP",
           fillcolor: const Color.fromRGBO(43, 40, 53, 1),
         ),
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            Provider.of<FirebaseProvider>(context, listen: false)
-                .verifyOtp(otpController.text, context);
+            verifyOtp(context, otpcontroller.text);
           },
           child: Container(
             height: size.height * 0.07,
@@ -54,5 +52,19 @@ class CustomAlertDialog extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void verifyOtp(context, String userotp) {
+    AuthService service = AuthService();
+    service.verifyOtp(
+        verificationId: veridicationId,
+        otp: userotp,
+        onSuccess: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ));
+        });
   }
 }

@@ -102,17 +102,8 @@ class PhoneLoginScreen extends StatelessWidget {
                           String countrycode = "+91";
                           String phonenumber =
                               countrycode + phonecontroller.text;
-
-                          service.signInWithPhone(phonenumber, context,
+                          service.signInwithPhone(phonenumber, context,
                               namecontroller.text, emailcontroller.text);
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return CustomAlertDialog(
-                                otpController: otpcontroller,
-                              );
-                            },
-                          );
                         },
                         child: Container(
                           width: size.width,

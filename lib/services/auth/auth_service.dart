@@ -1,4 +1,5 @@
 import 'package:chathub/models/user_model.dart';
+import 'package:chathub/views/loginscreen/widgets/custom_alert_dialoge.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  var verifyid = "";
 
   Future<UserCredential?> signInWithEmail(
       String email, String pass, context) async {
@@ -67,49 +67,57 @@ class AuthService {
     }
   }
 
-  signInWithPhone(
+  void signInwithPhone(
       String phonenumber, context, String name, String email) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: phonenumber,
-      verificationCompleted: (phoneAuthCredential) async {
-        UserCredential user =
-            await auth.signInWithCredential(phoneAuthCredential);
-        final UserModel userdata = UserModel(
-            email: email,
-            name: name,
-            uid: user.user!.uid,
-            phonenumber: user.user!.phoneNumber);
-        firestore
-            .collection("users")
-            .doc(user.user!.uid)
-            .set(userdata.toJson());
-      },
-      verificationFailed: (e) {
-        if (e.code == "invalid-phone-number") {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('invalid phone number')));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Oops,something went wrong checkback later')));
-          throw Exception(e.code);
-        }
-      },
-      codeSent: (verificationId, resendToken) {
-        verifyid = verificationId;
-      },
-      codeAutoRetrievalTimeout: (verificationId) {
-        verifyid = verificationId;
-      },
-    );
+    try {
+      await auth.verifyPhoneNumber(
+          phoneNumber: phonenumber,
+          verificationCompleted:
+              (PhoneAuthCredential phoneAuthCredential) async {
+            var cred = await auth.signInWithCredential(phoneAuthCredential);
+            final UserModel userdata = UserModel(
+                email: email,
+                name: name,
+                uid: cred.user!.uid,
+                phonenumber: cred.user!.phoneNumber);
+            firestore
+                .collection("users")
+                .doc(cred.user!.uid)
+                .set(userdata.toJson());
+          },
+          verificationFailed: (error) {
+            throw Exception(error.message);
+          },
+          codeSent: (verificationId, resendtoken) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return CustomAlertDialog(
+                  veridicationId: verificationId,
+                );
+              },
+            );
+          },
+          codeAutoRetrievalTimeout: (verificationId) {});
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e);
+    }
   }
 
-  verifyOtp(String otp) async {
+  void verifyOtp(
+      {required String verificationId,
+      required String otp,
+      required Function onSuccess}) async {
     try {
-      var credential = await auth.signInWithCredential(
-          PhoneAuthProvider.credential(verificationId: verifyid, smsCode: otp));
-      return credential.user != null ? true : false;
+      PhoneAuthCredential cred = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: otp);
+      User? user = (await auth.signInWithCredential(cred)).user;
+
+      if (user != null) {
+        onSuccess();
+      }
     } on FirebaseAuthException catch (e) {
-      throw e;
+      throw Exception(e);
     }
   }
 

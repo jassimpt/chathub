@@ -82,16 +82,4 @@ class FirebaseProvider extends ChangeNotifier {
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
         }
       });
-
-  verifyOtp(String otp, context) async {
-    var isverified = await service.verifyOtp(otp);
-
-    isverified
-        ? Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ))
-        : ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('otp verification failer')));
-    notifyListeners();
-  }
 }
