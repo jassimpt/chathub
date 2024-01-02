@@ -139,11 +139,23 @@ class AuthService {
 
   Future<void> signOut() async {
     final GoogleSignIn google = GoogleSignIn();
+
     try {
-      await google.signOut();
       await auth.signOut();
+      await google.signOut();
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  void passwordReset({required email, context}) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Password reset email sent")));
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
     }
   }
 }

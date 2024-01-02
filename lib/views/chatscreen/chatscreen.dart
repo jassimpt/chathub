@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key, required this.user});
+  const ChatScreen({super.key, required this.user});
   final UserModel user;
 
   @override

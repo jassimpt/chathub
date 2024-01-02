@@ -1,5 +1,4 @@
 import 'package:chathub/services/auth/auth_service.dart';
-import 'package:chathub/views/loginscreen/widgets/custom_alert_dialoge.dart';
 import 'package:chathub/views/loginscreen/widgets/custom_phone_field.dart';
 import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +9,11 @@ import 'package:lottie/lottie.dart';
 class PhoneLoginScreen extends StatelessWidget {
   PhoneLoginScreen({super.key});
 
-  TextEditingController phonecontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController otpcontroller = TextEditingController();
-  AuthService service = AuthService();
+  final TextEditingController phonecontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController otpcontroller = TextEditingController();
+  final AuthService service = AuthService();
 
   @override
   Widget build(BuildContext context) {

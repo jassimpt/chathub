@@ -9,9 +9,9 @@ class CustomAlertDialog extends StatelessWidget {
   final String veridicationId;
   CustomAlertDialog({
     required this.veridicationId,
-    Key? key,
-  }) : super(key: key);
-  TextEditingController otpcontroller = TextEditingController();
+    super.key,
+  });
+  final TextEditingController otpcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -63,7 +63,7 @@ class CustomAlertDialog extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => HomeScreen(),
+                builder: (context) => const HomeScreen(),
               ));
         });
   }

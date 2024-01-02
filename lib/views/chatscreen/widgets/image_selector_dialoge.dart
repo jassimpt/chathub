@@ -9,19 +9,19 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ImageSelectorDialog extends StatelessWidget {
-  ImageSelectorDialog(
+  const ImageSelectorDialog(
       {super.key,
       required this.pro,
       required this.size,
       required this.recieverId});
-  ImagePickerProvider pro;
-  Size size;
-  String recieverId;
+  final ImagePickerProvider pro;
+  final Size size;
+  final String recieverId;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Color.fromRGBO(64, 42, 124, 1),
+      backgroundColor: const Color.fromRGBO(64, 42, 124, 1),
       content: Text(
         'Select image',
         style: GoogleFonts.poppins(fontSize: 20),
@@ -44,7 +44,7 @@ class ImageSelectorDialog extends StatelessWidget {
                           color: const Color.fromRGBO(164, 148, 231, 1)),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Iconsax.camera,
                       color: Color.fromRGBO(164, 148, 231, 1),
                     ),
@@ -62,7 +62,7 @@ class ImageSelectorDialog extends StatelessWidget {
                           color: const Color.fromRGBO(164, 148, 231, 1)),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Iconsax.gallery,
                       color: Color.fromRGBO(164, 148, 231, 1),
                     ),
@@ -81,7 +81,7 @@ class ImageSelectorDialog extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: pro.selectedimage != null
                             ? FileImage(pro.selectedimage!)
-                            : AssetImage('assets/images/user.jpg')
+                            : const AssetImage('assets/images/user.jpg')
                                 as ImageProvider)),
               ),
             ),
@@ -97,7 +97,7 @@ class ImageSelectorDialog extends StatelessWidget {
                   width: size.width * 0.6,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 153, 166, 225)),
+                      color: const Color.fromARGB(255, 153, 166, 225)),
                   child: Center(
                       child: Text(
                     "Send",

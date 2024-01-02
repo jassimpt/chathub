@@ -1,6 +1,7 @@
 import 'package:chathub/controller/auth_provider.dart';
 import 'package:chathub/views/homescreen/homescreen.dart';
 import 'package:chathub/views/loginscreen/phone_login_screen.dart';
+import 'package:chathub/views/passresetscreen/passresetscreen.dart';
 import 'package:chathub/views/registerscreen/registerscreen.dart';
 import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 import 'package:chathub/views/loginscreen/widgets/squaretile.dart';
@@ -12,10 +13,10 @@ import 'package:provider/provider.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController phonecontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
+  final TextEditingController phonecontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -95,15 +96,20 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 25),
+          Padding(
+            padding: const EdgeInsets.only(right: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Forgot password ?',
-                  style: TextStyle(
-                    color: Color.fromRGBO(91, 93, 98, 1),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PassReset(),
+                  )),
+                  child: const Text(
+                    'Forgot password ?',
+                    style: TextStyle(
+                      color: Color.fromRGBO(91, 93, 98, 1),
+                    ),
                   ),
                 )
               ],

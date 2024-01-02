@@ -15,14 +15,15 @@ class CustomPhoneField extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: controller,
         decoration: InputDecoration(
-            prefixText: '+91 ',
-            filled: true,
-            fillColor: const Color.fromRGBO(75, 58, 136, 1),
-            border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(20)),
-            hintText: hinttext,
-            hintStyle: const TextStyle()),
+          prefixText: '+91 ',
+          filled: true,
+          fillColor: const Color.fromRGBO(75, 58, 136, 1),
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20)),
+          hintText: hinttext,
+          hintStyle: const TextStyle(),
+        ),
       ),
     );
   }
