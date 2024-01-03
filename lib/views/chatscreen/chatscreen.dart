@@ -1,5 +1,5 @@
 import 'package:chathub/controller/firebase_provider.dart';
-import 'package:chathub/controller/image_provider.dart';
+import 'package:chathub/controller/basicprovider.dart';
 import 'package:chathub/models/user_model.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/services/chat/chat_service.dart';
@@ -98,8 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   context: context,
                                   builder: (context) {
                                     final pro =
-                                        Provider.of<ImagePickerProvider>(
-                                            context);
+                                        Provider.of<BasicProvider>(context);
                                     return ImageSelectorDialog(
                                       pro: pro,
                                       size: size,

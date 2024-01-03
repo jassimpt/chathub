@@ -1,6 +1,6 @@
 import 'package:chathub/controller/auth_provider.dart';
 import 'package:chathub/controller/firebase_provider.dart';
-import 'package:chathub/controller/image_provider.dart';
+import 'package:chathub/controller/basicprovider.dart';
 import 'package:chathub/services/auth/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           create: (context) => FirebaseProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => ImagePickerProvider(),
+          create: (context) => BasicProvider(),
         )
       ],
       child: MaterialApp(

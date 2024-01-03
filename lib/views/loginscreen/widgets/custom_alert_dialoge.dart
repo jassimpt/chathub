@@ -1,9 +1,12 @@
+import 'package:chathub/controller/basicprovider.dart';
 import 'package:chathub/services/auth/auth_service.dart';
 import 'package:chathub/views/homescreen/homescreen.dart';
 import 'package:chathub/views/registerscreen/widgets/customtextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String veridicationId;
@@ -22,15 +25,32 @@ class CustomAlertDialog extends StatelessWidget {
         height: 150,
       ),
       actions: [
-        CustomTextField(
-          controller: otpcontroller,
-          hinttext: "OTP",
-          fillcolor: const Color.fromRGBO(43, 40, 53, 1),
+        // CustomTextField(
+        //   controller: otpcontroller,
+        //   hinttext: "OTP",
+        //   fillcolor: const Color.fromRGBO(43, 40, 53, 1),
+        // ),
+        Pinput(
+          length: 6,
+          showCursor: true,
+          defaultPinTheme: PinTheme(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.amber)),
+          ),
+          onChanged: (value) {
+            Provider.of<BasicProvider>(context, listen: false).otpSetter(value);
+          },
         ),
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            verifyOtp(context, otpcontroller.text);
+            String userotp =
+                Provider.of<BasicProvider>(context, listen: false).otpcode ??
+                    "";
+            verifyOtp(context, userotp);
           },
           child: Container(
             height: size.height * 0.07,

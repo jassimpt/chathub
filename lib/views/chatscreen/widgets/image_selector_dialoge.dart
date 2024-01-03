@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chathub/controller/image_provider.dart';
+import 'package:chathub/controller/basicprovider.dart';
 import 'package:chathub/services/chat/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +14,7 @@ class ImageSelectorDialog extends StatelessWidget {
       required this.pro,
       required this.size,
       required this.recieverId});
-  final ImagePickerProvider pro;
+  final BasicProvider pro;
   final Size size;
   final String recieverId;
 
@@ -116,7 +116,7 @@ class ImageSelectorDialog extends StatelessWidget {
   }
 
   sendImage(recieverid, context) async {
-    final pro = Provider.of<ImagePickerProvider>(context, listen: false);
+    final pro = Provider.of<BasicProvider>(context, listen: false);
     if (pro.selectedimage != null) {
       ChatService().addImageMessage(recieverid, File(pro.selectedimage!.path));
     }
